@@ -29,6 +29,7 @@ int main() {
 		
 		s.mostrar();
 		s.verificaGane();
+		std::cout << "Luego del pequeño susto de tommy";
 	}
 
 
