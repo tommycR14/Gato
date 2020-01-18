@@ -58,7 +58,6 @@ void estructura::regUser(){
 
 void estructura::PvP() {
 	int turno = 1;
-	gano = false;
 	regUser();
 	mostrar();
 	system("pause");
@@ -292,8 +291,7 @@ void estructura::PvP() {
 				}
 			}
 		}
-		verificaGane();
-		
+		getGano();	
 	}
 }
 
