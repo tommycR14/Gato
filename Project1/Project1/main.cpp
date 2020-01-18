@@ -4,14 +4,12 @@
 
 int main() {
 	Jugador* a = new Jugador;
-	a->ficha = 'X';
-	a->nombre = "David";
 	Jugador* b = new Jugador;
-	b->ficha = 'O';
-	b->nombre = "Tommy";
 
 	estructura s(a, b);
-	s.insertarFicha(a, 2, 2);
+	s.PvP();
+
+	/*s.insertarFicha(a, 2, 2);
 
 	int turno = 1;
 	while (!s.getGano()) {
@@ -33,7 +31,7 @@ int main() {
 	}
 
 
-	s.mostrar();
+	s.mostrar();*/
 
 	return 0;
 }

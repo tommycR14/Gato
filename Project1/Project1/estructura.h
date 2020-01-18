@@ -17,10 +17,11 @@ private:
 public: 
 	bool getGano();
 	estructura(Jugador* , Jugador* ) ;
-	~estructura() {}
+	~estructura() { delete J1, J2; J1 = J2 = nullptr; }
 	void mostrar();
 	void verificaGane();
 	void insertarFicha(Jugador*,int,int);
-
+	void regUser();
+	void PvP();
 };
 
