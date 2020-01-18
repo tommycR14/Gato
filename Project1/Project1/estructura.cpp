@@ -15,7 +15,6 @@ estructura::estructura(Jugador* a, Jugador* b) {
 
 void estructura::mostrar() {
 	for (int i = 0; i < tablero.size(); i++) {
-		
 		for (int j = 0; j < tablero.at(i).size() ; j++) {
 			std::cout<<tablero.at(i).at(j)<<" | ";
 		}
@@ -73,8 +72,8 @@ void estructura::PvP() {
 		std::cout << "Posicion y:";  std::cin >> y;
 		if (turno == 1) {
 			std::cout << " Turno de " << J1->nombre << ". " << std::endl;
-			if (x == 1 && y == 1) {
-				if (tablero.at(1).at(1) == ' ') {
+			if (x == 0 && y == 0) {
+				if (tablero.at(0).at(0) == ' ') {
 					insertarFicha(J1, x, y);
 					mostrar();
 					turno = 2;
@@ -85,6 +84,54 @@ void estructura::PvP() {
 					system("pause");
 				}
 
+			}
+			else if (x == 0 && y == 1) {
+				if (tablero.at(0).at(1) == ' ') {
+					insertarFicha(J1, x, y);
+					mostrar();
+					turno = 2;
+					system("pause");
+				}
+				else {
+					std::cout << " Movimiento Invalido. " << std::endl;
+					system("pause");
+				}
+			}
+			else if (x == 0 && y == 2) {
+				if (tablero.at(0).at(2) == ' ') {
+					insertarFicha(J1, x, y);
+					mostrar();
+					turno = 2;
+					system("pause");
+				}
+				else {
+					std::cout << " Movimiento Invalido. " << std::endl;
+					system("pause");
+				}
+			}
+			else if (x == 1 && y == 0) {
+				if (tablero.at(1).at(0) == ' ') {
+					insertarFicha(J1, x, y);
+					mostrar();
+					turno = 2;
+					system("pause");
+				}
+				else {
+					std::cout << " Movimiento Invalido. " << std::endl;
+					system("pause");
+				}
+			}
+			else if (x == 1 && y == 1) {
+				if (tablero.at(1).at(1) == ' ') {
+					insertarFicha(J1, x, y);
+					mostrar();
+					turno = 2;
+					system("pause");
+				}
+				else {
+					std::cout << " Movimiento Invalido. " << std::endl;
+					system("pause");
+				}
 			}
 			else if (x == 1 && y == 2) {
 				if (tablero.at(1).at(2) == ' ') {
@@ -98,8 +145,8 @@ void estructura::PvP() {
 					system("pause");
 				}
 			}
-			else if (x == 1 && y == 3) {
-				if (tablero.at(1).at(3) == ' ') {
+			else if (x == 2 && y == 0) {
+				if (tablero.at(2).at(0) == ' ') {
 					insertarFicha(J1, x, y);
 					mostrar();
 					turno = 2;
@@ -127,54 +174,6 @@ void estructura::PvP() {
 					insertarFicha(J1, x, y);
 					mostrar();
 					turno = 2;
-					system("pause");
-				}
-				else {
-					std::cout << " Movimiento Invalido. " << std::endl;
-					system("pause");
-				}
-			}
-			else if (x == 2 && y == 3) {
-				if (tablero.at(2).at(3) == ' ') {
-					insertarFicha(J1, x, y);
-					mostrar();
-					turno = 2;
-					system("pause");
-				}
-				else {
-					std::cout << " Movimiento Invalido. " << std::endl;
-					system("pause");
-				}
-			}
-			else if (x == 3 && y == 1) {
-				if (tablero.at(3).at(1) == ' ') {
-					insertarFicha(J1, x, y);
-					mostrar();
-					turno = 2;
-					system("pause");
-				}
-				else {
-					std::cout << " Movimiento Invalido. " << std::endl;
-					system("pause");
-				}
-			}
-			else if (x == 3 && y == 2) {
-				if (tablero.at(3).at(2) == ' ') {
-					insertarFicha(J1, x, y);
-					mostrar();
-					turno = 2;
-					system("pause");
-				}
-				else {
-					std::cout << " Movimiento Invalido. " << std::endl;
-					system("pause");
-				}
-			}
-			else if (x == 3 && y == 3) {
-				if (tablero.at(3).at(3) == ' ') {
-					insertarFicha(J1, x, y);
-					mostrar();
-					turno = 2;
 				}
 				else {
 					std::cout << " Movimiento Invalido. " << std::endl;
@@ -183,118 +182,117 @@ void estructura::PvP() {
 			}
 		}
 		else  if (turno == 2) {
-				std::cout << " Turno de " << J2->nombre << ". " << std::endl;
-				if (x == 1 && y == 1) {
-					if (tablero.at(1).at(1) == ' ') {
-						insertarFicha(J2, x, y);
-						mostrar();
-						turno = 2;
-						system("pause");
-					}
-					else {
-						std::cout << " Movimiento Invalido. " << std::endl;
-						system("pause");
-					}
+			std::cout << " Turno de " << J1->nombre << ". " << std::endl;
+			if (x == 0 && y == 0) {
+				if (tablero.at(0).at(0) == ' ') {
+					insertarFicha(J2, x, y);
+					mostrar();
+					turno = 1;
+					system("pause");
+				}
+				else {
+					std::cout << " Movimiento Invalido. " << std::endl;
+					system("pause");
+				}
 
+			}
+			else if (x == 0 && y == 1) {
+				if (tablero.at(0).at(1) == ' ') {
+					insertarFicha(J2, x, y);
+					mostrar();
+					turno = 1;
+					system("pause");
 				}
-				else if (x == 1 && y == 2) {
-					if (tablero.at(1).at(2) == ' ') {
-						insertarFicha(J2, x, y);
-						mostrar();
-						turno = 2;
-						system("pause");
-					}
-					else {
-						std::cout << " Movimiento Invalido. " << std::endl;
-						system("pause");
-					}
+				else {
+					std::cout << " Movimiento Invalido. " << std::endl;
+					system("pause");
 				}
-				else if (x == 1 && y == 3) {
-					if (tablero.at(1).at(3) == ' ') {
-						insertarFicha(J2, x, y);
-						mostrar();
-						turno = 2;
-						system("pause");
-					}
-					else {
-						std::cout << " Movimiento Invalido. " << std::endl;
-						system("pause");
-					}
+			}
+			else if (x == 0 && y == 2) {
+				if (tablero.at(0).at(2) == ' ') {
+					insertarFicha(J2, x, y);
+					mostrar();
+					turno = 1;
+					system("pause");
 				}
-				else if (x == 2 && y == 1) {
-					if (tablero.at(2).at(1) == ' ') {
-						insertarFicha(J2, x, y);
-						mostrar();
-						turno = 2;
-						system("pause");
-					}
-					else {
-						std::cout << " Movimiento Invalido. " << std::endl;
-						system("pause");
-
-					}
+				else {
+					std::cout << " Movimiento Invalido. " << std::endl;
+					system("pause");
 				}
-				else if (x == 2 && y == 2) {
-					if (tablero.at(2).at(2) == ' ') {
-						insertarFicha(J2, x, y);
-						mostrar();
-						turno = 2;
-						system("pause");
-					}
-					else {
-						std::cout << " Movimiento Invalido. " << std::endl;
-						system("pause");
-					}
+			}
+			else if (x == 1 && y == 0) {
+				if (tablero.at(1).at(0) == ' ') {
+					insertarFicha(J2, x, y);
+					mostrar();
+					turno = 1;
+					system("pause");
 				}
-				else if (x == 2 && y == 3) {
-					if (tablero.at(2).at(3) == ' ') {
-						insertarFicha(J2, x, y);
-						mostrar();
-						turno = 2;
-						system("pause");
-					}
-					else {
-						std::cout << " Movimiento Invalido. " << std::endl;
-						system("pause");
-					}
+				else {
+					std::cout << " Movimiento Invalido. " << std::endl;
+					system("pause");
 				}
-				else if (x == 3 && y == 1) {
-					if (tablero.at(3).at(1) == ' ') {
-						insertarFicha(J2, x, y);
-						mostrar();
-						turno = 2;
-					}
-					else {
-						std::cout << " Movimiento Invalido. " << std::endl;
-						system("pause");
-					}
+			}
+			else if (x == 1 && y == 1) {
+				if (tablero.at(1).at(1) == ' ') {
+					insertarFicha(J2, x, y);
+					mostrar();
+					turno = 1;
+					system("pause");
 				}
-				else if (x == 3 && y == 2) {
-					if (tablero.at(3).at(2) == ' ') {
-						insertarFicha(J2, x, y);
-						mostrar();
-						turno = 2;
-						system("pause");
-					}
-					else {
-						std::cout << " Movimiento Invalido. " << std::endl;
-						system("pause");
-					}
+				else {
+					std::cout << " Movimiento Invalido. " << std::endl;
+					system("pause");
 				}
-				else if (x == 3 && y == 3) {
-					if (tablero.at(3).at(3) == ' ') {
-						insertarFicha(J2, x, y);
-						mostrar();
-						turno = 2;
-						system("pause");
-					}
-					else {
-						std::cout << " Movimiento Invalido. " << std::endl;
-						system("pause");
-					}
+			}
+			else if (x == 1 && y == 2) {
+				if (tablero.at(1).at(2) == ' ') {
+					insertarFicha(J2, x, y);
+					mostrar();
+					turno = 1;
+					system("pause");
 				}
+				else {
+					std::cout << " Movimiento Invalido. " << std::endl;
+					system("pause");
+				}
+			}
+			else if (x == 2 && y == 0) {
+				if (tablero.at(2).at(0) == ' ') {
+					insertarFicha(J2, x, y);
+					mostrar();
+					turno = 1;
+					system("pause");
+				}
+				else {
+					std::cout << " Movimiento Invalido. " << std::endl;
+					system("pause");
+				}
+			}
+			else if (x == 2 && y == 1) {
+				if (tablero.at(2).at(1) == ' ') {
+					insertarFicha(J2, x, y);
+					mostrar();
+					turno = 1;
+					system("pause");
+				}
+				else {
+					std::cout << " Movimiento Invalido. " << std::endl;
+					system("pause");
+				}
+			}
+			else if (x == 2 && y == 2) {
+				if (tablero.at(2).at(2) == ' ') {
+					insertarFicha(J2, x, y);
+					mostrar();
+					turno = 1;
+				}
+				else {
+					std::cout << " Movimiento Invalido. " << std::endl;
+					system("pause");
+				}
+			}
 		}
-			verificaGane();
+		verificaGane();
 		
 	}
 }
