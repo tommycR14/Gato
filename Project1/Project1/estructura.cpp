@@ -295,4 +295,21 @@ void estructura::PvP() {
 	}
 }
 
+bool estructura::WinCondition(Jugador* pj){
+	for (int i = 0; i < tablero.size(); i++) {
+		for (int j = 0; j < tablero.at(i).size(); j++) {
+			if (tablero.at(i).at(0) == pj->ficha && tablero.at(i).at(1) == pj->ficha && tablero.at(i).at(2) == pj->ficha)
+				return true;		//	check de lineas horizontales
+			if (tablero.at(0).at(i) == pj->ficha && tablero.at(1).at(i) == pj->ficha && tablero.at(2).at(i) == pj->ficha)
+				return true;		// check de lineas verticales
+		}
+	}
+	if (tablero.at(0).at(0) == pj->ficha && tablero.at(1).at(1) == pj->ficha && tablero.at(2).at(2) == pj->ficha)
+		return true;		// check diagonal principal
+	if (tablero.at(0).at(2) == pj->ficha && tablero.at(1).at(1) == pj->ficha && tablero.at(2).at(0) == pj->ficha)
+		return true;		// check diagonal principal
+
+	return false;
+}
+
 

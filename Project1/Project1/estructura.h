@@ -23,5 +23,6 @@ public:
 	void insertarFicha(Jugador*,int,int);
 	void regUser();
 	void PvP();
+	bool WinCondition(Jugador*);
 };
 
