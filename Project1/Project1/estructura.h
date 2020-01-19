@@ -19,10 +19,10 @@ public:
 	estructura(Jugador* , Jugador* ) ;
 	~estructura() { delete J1, J2; J1 = J2 = nullptr; }
 	void mostrar();
-	void verificaGane();
 	void insertarFicha(Jugador*,int,int);
 	void regUser();
 	void PvP();
-	bool WinCondition(Jugador*);
+	void validacion(int, int, Jugador* );
+	void WinCondition(Jugador*);
 };
 
