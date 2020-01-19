@@ -23,6 +23,11 @@ public:
 	void regUser();
 	void PvP();
 	void validacion(int, int, Jugador* );
-	void WinCondition(Jugador*);
+	int WinCondition(Jugador*);
+	int WinCondition2(Jugador*);
+
+	void PVE();
+
+	int minimax(std::vector<std::vector<char>>, int, bool, char );
 };
 

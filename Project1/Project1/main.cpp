@@ -5,9 +5,9 @@
 int main() {
 	Jugador* a = new Jugador;
 	Jugador* b = new Jugador;
-	a->ficha = 'X';
+	a->ficha = 'x';
 	estructura s(a, b);
-	s.PvP(); 
+	s.PVE(); 
 
 	return 0;
 }
