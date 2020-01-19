@@ -27,7 +27,7 @@ public:
 	int WinCondition2(Jugador*);
 
 	void PVE();
-
-	int minimax(std::vector<std::vector<char>>, int, bool, char );
+	bool equals3(char , char , char );
+	int minimax( int, bool, char );
 };
 

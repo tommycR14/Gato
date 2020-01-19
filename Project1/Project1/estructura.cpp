@@ -121,48 +121,55 @@ void estructura::validacion(int x, int y, Jugador* J1) {
 
 
 }
+
+bool estructura::equals3(char a, char b, char c) {
+	return a == b && b == c && a != ' ';
+}
 int estructura::WinCondition2(Jugador* pj) {
-	int lleno = 0;
-	for (int i = 0; i < tablero.size(); i++) {
-		bool fila = true;
-		bool colm = true;
-		for (int j = 0; j < tablero.at(i).size(); j++) {
-			if (!(tablero.at(i).at(j) == pj->ficha))
-				fila = false;
-			if (!(tablero.at(j).at(i) == pj->ficha))
-				colm = false;
-			if (!(tablero.at(i).at(j) == ' '))
-				++lleno;
-		}
-		if (fila || colm){
-			if (pj->ficha == 'x')
-				return 1;
-			else
-				return -1;
-		}
-		if (lleno == 9) {
-			return 0;
-		}
+	int winner = 3;
 
+	// horizontal
+	for (int i = 0; i < 3; i++) {
+		if (equals3(tablero[i][0], tablero[i][1], tablero[i][2])) {
+			winner = tablero[i][0];
+		}
 	}
 
-
-	if (tablero.at(0).at(0) == pj->ficha && tablero.at(1).at(1) == pj->ficha && tablero.at(2).at(2) == pj->ficha)
-	 {
-		if (pj->ficha == 'x')
-			return 1;
-		else
-			return -1;
-	}
-	if (tablero.at(0).at(2) == pj->ficha && tablero.at(1).at(1) == pj->ficha && tablero.at(2).at(0) == pj->ficha)
-	{
-		if (pj->ficha == 'x')
-			return 1;
-		else
-			return -1;
+	// Vertical
+	for (int i = 0; i < 3; i++) {
+		if (equals3(tablero[0][i], tablero[1][i], tablero[2][i])) {
+			winner = tablero[0][i];
+		}
 	}
 
-	
+	// Diagonal
+	if (equals3(tablero[0][0], tablero[1][1], tablero[2][2])) {
+		winner = tablero[0][0];
+	}
+	if (equals3(tablero[2][0], tablero[1][1], tablero[0][2])) {
+		winner = tablero[2][0];
+	}
+
+	int openSpots = 0;
+	for (int i = 0; i < 3; i++) {
+		for (int j = 0; j < 3; j++) {
+			if (tablero[i][j] == ' ') {
+				openSpots++;
+			}
+		}
+	}
+
+	if (openSpots == 0) {
+		return 0;
+	}
+	else if(winner == 'x'){
+		return 1;
+	}
+	else if (winner == 'o') {
+		return -1;
+	}
+	else
+		return 3;
 }
 
 int estructura::WinCondition(Jugador* pj) {
@@ -211,20 +218,19 @@ void estructura::PVE() {
 	J1->nombre = nombP1;
 	J1->ficha = 'o';
 	std::cout << '\n';
-	int posX; int posY;
+	int posX = 0; int posY = 0;
 	
 	while (!gano) {
 		system("cls");
 
 		if (turno == 1) {
-			int bestScore = -INFINITY;
+			int bestScore = -2;
 			for (int i = 0; i < 3; i++) {
 				for (int j = 0; j < 3; j++) {
-					// Is the spot available?
 					if (tablero[i][j] == ' ') {
-						tablero[i][j] = 'x';
-						int score = minimax(tablero, 0, false, CPU->ficha);
-						tablero[i][j] = ' ';
+						tablero[i][j] = CPU->ficha;
+						int score = minimax(0, false, CPU->ficha);
+						tablero.at(i).at(j) = ' ';
 						if (score > bestScore) {
 							bestScore = score;
 							posX = i;
@@ -233,7 +239,7 @@ void estructura::PVE() {
 					}
 				}
 			}
-			tablero[posX][posY] = 'x';
+			tablero.at(posX).at(posY) = CPU->ficha;
 			mostrar();
 			turno = 2;
 			WinCondition(CPU);
@@ -255,24 +261,24 @@ void estructura::PVE() {
 	}
 }
 
-int estructura::minimax(std::vector<std::vector<char>> tablero, int profundidad, bool estaMax,char ficha) {
+int estructura::minimax( int profundidad, bool estaMax,char ficha) {
 	Jugador* pj = new Jugador();
 	pj->ficha = ficha;
 
 	int result = WinCondition2(pj);
-	if (!gano) {
+	if (result != 3) {
 		return result;
 	}
 
 	if (estaMax) {
-		int bestScore = -INFINITY;
+		int bestScore = -2;
 		for (int i = 0; i < 3; i++) {
 			for (int j = 0; j < 3; j++) {
 				// Is the spot available?
-				if (tablero[i][j] == ' ') {
-					tablero[i][j] = 'x';
-					int score = minimax(tablero, profundidad + 1, false, pj->ficha);
-					tablero[i][j] = ' ';
+				if (tablero.at(i).at(j) == ' ') {
+					tablero.at(i).at(j) = 'x';
+					int score = minimax( profundidad + 1, false,'x');
+					tablero.at(i).at(j) = ' ';
 					if (score > bestScore)
 						bestScore = score;
 				}
@@ -281,14 +287,14 @@ int estructura::minimax(std::vector<std::vector<char>> tablero, int profundidad,
 		return bestScore;
 	}
 	else {
-		int bestScore = INFINITY;
+		int bestScore = 2;
 		for (int i = 0; i < 3; i++) {
 			for (int j = 0; j < 3; j++) {
 				// Is the spot available?
-				if (tablero[i][j] == ' ') {
-					tablero[i][j] = 'o';
-					int score = minimax(tablero, profundidad + 1, true, pj->ficha);
-					tablero[i][j] = ' ';
+				if (tablero.at(i).at(j) == ' ') {
+					tablero.at(i).at(j) = 'o';
+					int score = minimax( profundidad + 1, true,'o');
+					tablero.at(i).at(j) = ' ';
 					if (score < bestScore)
 						bestScore = score;
 				}
