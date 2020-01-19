@@ -7,8 +7,7 @@ int main() {
 	Jugador* b = new Jugador;
 
 	estructura s(a, b);
-	s.PvP();
-
+	s.PvP(); //se debe de asignar el metodo de creacion a una clase aparte para cumplir con el principio de resposabilidad unica
 	/*s.insertarFicha(a, 2, 2);
 
 	int turno = 1;
