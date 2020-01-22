@@ -229,7 +229,7 @@ void estructura::PVE() {
 				for (int j = 0; j < 3; j++) {
 					if (tablero[i][j] == ' ') {
 						tablero[i][j] = CPU->ficha;
-						int score = minimax(0, false, CPU->ficha);
+						int score = minimax( false, CPU->ficha);
 						tablero.at(i).at(j) = ' ';
 						if (score > bestScore) {
 							bestScore = score;
@@ -261,7 +261,7 @@ void estructura::PVE() {
 	}
 }
 
-int estructura::minimax( int profundidad, bool estaMax,char ficha) {
+int estructura::minimax( bool estaMax,char ficha) {
 	Jugador* pj = new Jugador();
 	pj->ficha = ficha;
 
@@ -274,10 +274,9 @@ int estructura::minimax( int profundidad, bool estaMax,char ficha) {
 		int bestScore = -2;
 		for (int i = 0; i < 3; i++) {
 			for (int j = 0; j < 3; j++) {
-				// Is the spot available?
 				if (tablero.at(i).at(j) == ' ') {
 					tablero.at(i).at(j) = 'x';
-					int score = minimax( profundidad + 1, false,'x');
+					int score = minimax(false,'x');
 					tablero.at(i).at(j) = ' ';
 					if (score > bestScore)
 						bestScore = score;
@@ -290,10 +289,9 @@ int estructura::minimax( int profundidad, bool estaMax,char ficha) {
 		int bestScore = 2;
 		for (int i = 0; i < 3; i++) {
 			for (int j = 0; j < 3; j++) {
-				// Is the spot available?
 				if (tablero.at(i).at(j) == ' ') {
 					tablero.at(i).at(j) = 'o';
-					int score = minimax( profundidad + 1, true,'o');
+					int score = minimax(true,'o');
 					tablero.at(i).at(j) = ' ';
 					if (score < bestScore)
 						bestScore = score;

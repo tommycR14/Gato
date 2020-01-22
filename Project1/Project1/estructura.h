@@ -28,6 +28,6 @@ public:
 
 	void PVE();
 	bool equals3(char , char , char );
-	int minimax( int, bool, char );
+	int minimax( bool, char );
 };
 
