@@ -7,7 +7,7 @@ int main() {
 	Jugador* b = new Jugador;
 	a->ficha = 'x';
 	estructura s(a, b);
-	s.PVE(); 
+	s.PVEintermedio(); 
 
 	return 0;
 }

@@ -21,13 +21,27 @@ public:
 	void mostrar();
 	void insertarFicha(Jugador*,int,int);
 	void regUser();
-	void PvP();
+	
+	//verfica si el movimiento ingresado
+	//por el jugador es correcto
 	void validacion(int, int, Jugador* );
-	int WinCondition(Jugador*);
+	
+	//verifica que alguien gane
 	int WinCondition2(Jugador*);
+	
+	//juego de persona vs persona
+	void PvP();
 
+	//computadora dificil
 	void PVE();
-	bool equals3(char , char , char );
-	int minimax( bool, char );
+	int minimax(bool, char);
+	bool equals3(char, char, char);
+
+	//Contra computadora intermedio
+	void PVEintermedio();
+	bool juegoOfensivo();
+	bool juegoDefensivo();
+	bool juegaAleatorio();
+	bool espacioVacio();
 };
 
