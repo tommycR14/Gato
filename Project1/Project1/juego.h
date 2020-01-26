@@ -8,7 +8,6 @@ private:
 	estructura* estruct;
 	Jugador* J1;
 	Jugador* J2;
-	//grafico ventana;
 
 public: 
 	juego();//reserva un espacio en el heap para los atributos de la clase
@@ -22,8 +21,6 @@ public:
 	void PCvsJugadorFacil();
 	void PCvsJugadorIntermedio();
 	void PCvsJugadorDificil();
-	void jugadorVSjugador();
-	void dibujar();
-	
+	void jugadorVSjugador();	
 };
 

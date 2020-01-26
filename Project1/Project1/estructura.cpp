@@ -30,6 +30,7 @@ void estructura::PvP(Jugador* J1, Jugador* J2) {
 	int turno = 1 + rand() % (3 - 1);
 
 	mostrar();
+	graph.draw(tablero);
 	system("pause");
 	//crea el hilo del juego 
 	while (!gano) {
@@ -54,6 +55,7 @@ void estructura::PvP(Jugador* J1, Jugador* J2) {
 			validacion(x, y, J1);//Verica si la posicion es correcta
 			if (winCondition(J1) != 3)//Verica si alguien ha ganado o empatado
 				gano = true;
+
 			turno = 2;
 		}//JUEGA J2
 		else {
@@ -78,6 +80,8 @@ void estructura::validacion(int x, int y, Jugador* J1) {
 	 if ((x <= 2 && x >= 0) && (y <= 2 && y >= 0) && (tablero.at(x).at(y) == ' ')) {
 		insertarFicha(J1, x, y);
 		mostrar();
+		graph.draw(tablero);
+		system("pause");
 	}//en caso de que no sea valido vuelve a solicitar la insercion
 	else {
 		int x2, y2;
@@ -149,7 +153,7 @@ int estructura::verificaEspaciosVacios() {
 
 //Dificultad intermedia que permite ganarle a la compu. 
 void estructura::PVEintermedio(Jugador* J1, Jugador* CPU) {
-
+	graph.eventos();
 	int posX = 0; int posY = 0;
 	srand(time(NULL));//se inicializa la semilla con respecto a la hora de la compu
 
@@ -159,9 +163,9 @@ void estructura::PVEintermedio(Jugador* J1, Jugador* CPU) {
 	else
 		std::cout << "Empieza el ser humano: ";
 	
-	system("pause");
 
 	while (!gano) {
+		graph.eventos();
 		if (turno == 1) {
 			if (!juegoOfensivo()) {//primero verifica si existe posibilidad de ganar
 				if (!juegoDefensivo()) //luego se serciora de que bloquear al jugador
@@ -169,7 +173,7 @@ void estructura::PVEintermedio(Jugador* J1, Jugador* CPU) {
 			}
 			turno = 2;
 			mostrar();
-			system("pause");
+			graph.draw(tablero);
 		}
 		else {
 			//turno del jugador en el que se inserta la ficha 'o'
@@ -181,7 +185,6 @@ void estructura::PVEintermedio(Jugador* J1, Jugador* CPU) {
 			std::cout << "\n\t=>Posicion y:";  std::cin >> y;
 			validacion(x, y, J1);
 			turno = 1;
-			system("pause");
 		}
 		if (winCondition(J1) != 3 || winCondition(CPU) != 3)//verifica si alguno ha ganado.
 			gano = true;
@@ -378,6 +381,7 @@ void estructura::PVEdificil(Jugador* J1, Jugador* CPU) {
 			}
 			tablero.at(posX).at(posY) = CPU->ficha;//dado el mayor puntaje se le asigna las coordenadas asociadas a esa mejor puntuacion al tablero. 
 			mostrar();//muestra en consola
+			graph.draw(tablero);
 			turno = 2;//pasa el turno
 			if (winCondition(CPU) != 3)//verifica si gano en su turno
 				gano = true;
@@ -475,6 +479,7 @@ void estructura::PVEfacil(Jugador* J1, Jugador* J2) {
 			//Se valida por si gano o si el tablero esta lleno
 			if (winCondition(J1) != 3)
 				gano = true;
+			graph.draw(tablero);
 			//Se cambia de turno
 			turno = 2;
 		}
@@ -492,7 +497,7 @@ void estructura::PVEfacil(Jugador* J1, Jugador* J2) {
 			//Se cambia de turno
 			turno = 1;
 			mostrar();
-
+			graph.draw(tablero);
 			system("pause");
 		}
 	}

@@ -6,10 +6,8 @@ juego::juego() {
 	J2 = new Jugador;
 	estruct = new estructura();
 }
-//void juego::dibujar() {
-//	ventana.gameLoop();
-//}
-//registros
+
+
 void juego::registroUnico() {
 	std::string nombP1;
 	std::cout << " Jugador 1. Digite su nombre" << "\n";

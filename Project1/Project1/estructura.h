@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include <vector>
+#include "grafico.h"
 
 struct Jugador {
 	std::string nombre;
@@ -41,9 +42,11 @@ private:
 	// y diferentes de espacio.
 	bool verificaIgualdad(char, char, char);
 
+	grafico graph;
 public: 
 	
 	estructura() ;//constructor de la clase
+	std::vector<std::vector<char>>& getTablero() { return tablero; }
 	
 	//juego de persona vs persona
 	void PvP(Jugador* , Jugador* );
