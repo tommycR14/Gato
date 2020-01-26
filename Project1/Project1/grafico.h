@@ -18,7 +18,16 @@ private:
 	sf::Texture gatoT;
 	sf::Sprite gatoS;
 	
+	sf::Texture marcoT;
+	sf::Sprite marcoS;
+
 	sf::Event evento;
+
+	int coorMarcoX;
+	int coorMarcoY;
+	int posTableroi;
+	int posTableroJ;
+
 public: 
 	grafico();
 	~grafico() { delete window; }

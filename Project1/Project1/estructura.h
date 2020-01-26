@@ -1,7 +1,7 @@
 #pragma once
+#include "grafico.h"
 #include <string>
 #include <vector>
-#include "grafico.h"
 
 struct Jugador {
 	std::string nombre;
@@ -26,13 +26,10 @@ private:
 	//cuenta cuantos espacios vacios hay. 
 	int verificaEspaciosVacios();
 	
-	//verfica si el movimiento ingresado
-	//por el jugador es correcto
-	void validacion(int, int, Jugador*);
+	
 	
 	void mostrar();
-	//verifica que alguien gane
-	int winCondition(Jugador*);
+	
 	~estructura() {}
 	//crea un arbol de desiciones en el que escoje la opcion 
 	//que de el puntaje mas alto en el que juega la PC
@@ -42,7 +39,7 @@ private:
 	// y diferentes de espacio.
 	bool verificaIgualdad(char, char, char);
 
-	grafico graph;
+	grafico ventana;
 public: 
 	
 	estructura() ;//constructor de la clase
@@ -59,5 +56,12 @@ public:
 
 	//facil
 	void PVEfacil(Jugador*,Jugador*);
+
+	//verfica si el movimiento ingresado
+	//por el jugador es correcto
+	bool validacion(int, int, Jugador*);
+
+	//verifica que alguien gane
+	int winCondition(Jugador*);
 };
 
