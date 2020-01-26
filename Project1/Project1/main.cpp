@@ -5,7 +5,8 @@
 
 int main() {
 	juego j;
-	j.PCvsJugadorIntermedio();
+	//j.PCvsJugadorIntermedio();
+	//j.dibujar();
 
 	return 0;
 }
