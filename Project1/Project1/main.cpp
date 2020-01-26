@@ -1,13 +1,11 @@
 #include <iostream>
 #include <Windows.h>
 #include "estructura.h"
+#include "juego.h"
 
 int main() {
-	Jugador* a = new Jugador;
-	Jugador* b = new Jugador;
-	a->ficha = 'x';
-	estructura s(a, b);
-	s.PVEintermedio(); 
+	juego j;
+	j.PCvsJugadorIntermedio();
 
 	return 0;
 }

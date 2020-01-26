@@ -10,38 +10,51 @@ struct Jugador {
 class estructura
 {
 private:
-	 Jugador* J1;
-	 Jugador* J2;
+	//======== ATRIBUTOS =============
 	std::vector<std::vector<char>> tablero;
 	bool gano;
-public: 
-	bool getGano();
-	estructura(Jugador* , Jugador* ) ;
-	~estructura() { delete J1, J2; J1 = J2 = nullptr; }
-	void mostrar();
-	void insertarFicha(Jugador*,int,int);
-	void regUser();
-	
-	//verfica si el movimiento ingresado
-	//por el jugador es correcto
-	void validacion(int, int, Jugador* );
-	
-	//verifica que alguien gane
-	int WinCondition2(Jugador*);
-	
-	//juego de persona vs persona
-	void PvP();
+	//======== # # # # # =============
 
-	//computadora dificil
-	void PVE();
-	int minimax(bool, char);
-	bool equals3(char, char, char);
-
-	//Contra computadora intermedio
-	void PVEintermedio();
+	//auxiliares para el juego intermedio
 	bool juegoOfensivo();
 	bool juegoDefensivo();
 	bool juegaAleatorio();
-	bool espacioVacio();
+
+	//posiciona la ficha en un lugar determinado
+	void insertarFicha(Jugador* j, int x, int y) { tablero.at(x).at(y) = j->ficha; }
+	//cuenta cuantos espacios vacios hay. 
+	int verificaEspaciosVacios();
+	
+	//verfica si el movimiento ingresado
+	//por el jugador es correcto
+	void validacion(int, int, Jugador*);
+	
+	void mostrar();
+	//verifica que alguien gane
+	int winCondition(Jugador*);
+	~estructura() {}
+	//crea un arbol de desiciones en el que escoje la opcion 
+	//que de el puntaje mas alto en el que juega la PC
+	int minimax(int,bool, char);
+	
+	// Verifica que las fichas sean iguales 
+	// y diferentes de espacio.
+	bool verificaIgualdad(char, char, char);
+
+public: 
+	
+	estructura() ;//constructor de la clase
+	
+	//juego de persona vs persona
+	void PvP(Jugador* , Jugador* );
+
+	//computadora dificil
+	void PVEdificil(Jugador* ,Jugador*);
+
+	//Contra computadora intermedio
+	void PVEintermedio(Jugador*, Jugador*);
+
+	//facil
+	void PVEfacil(Jugador*,Jugador*);
 };
 
