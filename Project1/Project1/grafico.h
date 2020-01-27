@@ -1,5 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 
 class grafico
 {
@@ -18,20 +19,21 @@ private:
 	sf::Texture gatoT;
 	sf::Sprite gatoS;
 	
+
+	sf::Texture menuT;
+	sf::Sprite menuS;
+
 	sf::Texture marcoT;
 	sf::Sprite marcoS;
 
-	sf::Event evento;
 
-	int coorMarcoX;
-	int coorMarcoY;
-	int posTableroi;
-	int posTableroJ;
 
 public: 
 	grafico();
 	~grafico() { delete window; }
-	void draw(std::vector<std::vector<char>>&);
-	void eventos();
+
+	void drawTablero(std::vector<std::vector<char>>&);
+	sf::RenderWindow*& getWindow() { return window; }
+	void setMarcoS(int x,int y);
 };
 

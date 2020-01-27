@@ -1,7 +1,10 @@
+
 #include "estructura.h"
 #include <iostream>
 #include <stdlib.h>
 #include <time.h>
+
+
 estructura::estructura() {
 	//Recorre el tablero y lo llena con espacios vacios (' ') en cada posicion
 
@@ -12,7 +15,6 @@ estructura::estructura() {
 		}
 		tablero.push_back(linea);
 	}
-	gano = false;//inicializa la variable en falso
 }
 
 void estructura::mostrar() {
@@ -25,65 +27,19 @@ void estructura::mostrar() {
 	}
 }
 
-void estructura::PvP(Jugador* J1, Jugador* J2) {
-	//inicializa el turno de manera random
-	srand(time(NULL));
-	int turno = 1 + rand() % (3 - 1);
 
-	mostrar();
-	ventana.draw(tablero);
-	//crea el hilo del juego 
-	while (!gano) {
-				int x = 0, y = 0;
-
-		if (turno == 1)
-			std::cout << J1->nombre << "empieza con el primer turno.\n ";
-		else
-			std::cout << J2->nombre << "empieza con el primer turno.\n ";
-
-		system("pause");
-		//JUEGA J1
-		if (turno == 1) {
-			while (turno == 1) {
-				ventana.eventos();
-				ventana.draw(tablero);
-			}
-		}//JUEGA J2
-		else {
-			std::cout << "\nPor favor inserte una posicion (x,y): ";
-			std::cout << "\n\t=>Posicion x:";  std::cin >> x;
-			std::cout << "\n\t=>Posicion y:";  std::cin >> y;
-
-			validacion(x, y, J2);//Verica si la posicion es correcta
-			if (winCondition(J2) != 3)//Verica si alguien ha ganado o empatado
-				gano = true;
-			turno = 1;
-		}
-		system("pause");
-	}
-}
 
 //Verica si la posicion ingresada es correcta
 bool estructura::validacion(int x, int y, Jugador* J1) {
-	std::cout << " Turno de " << J1->nombre << ". " << std::endl;
 	//Primero verifica que las cordenadas esten dentro del rango del tablero
 	//luego verifica que el espacio ingresado se encuentre en blanco.
 	 if ((x <= 2 && x >= 0) && (y <= 2 && y >= 0) && (tablero.at(x).at(y) == ' ')) {
 		insertarFicha(J1, x, y);
-		mostrar();
-		ventana.draw(tablero);
 		return true;
 	 }//en caso de que no sea valido vuelve a solicitar la insercion
-	else {
-		int x2, y2;
-		std::cout << "\nMovimiento Invalido...!! " << std::endl;
-		std::cout << "\nPor favor inserte una posicion (x,y): ";
-		std::cout << "\n\t=> Posicion x:";  std::cin >> x2;
-		std::cout << "\n\t=> Posicion y:";  std::cin >> y2;
-		validacion(x2, y2, J1);
-	}
-
-
+	else 
+		 return false;
+	
 }
 
 
@@ -142,45 +98,7 @@ int estructura::verificaEspaciosVacios() {
 	return espaciosVacios;
 }
 
-//Dificultad intermedia que permite ganarle a la compu. 
-void estructura::PVEintermedio(Jugador* J1, Jugador* CPU) {
-	ventana.eventos();
-	int posX = 0; int posY = 0;
-	srand(time(NULL));//se inicializa la semilla con respecto a la hora de la compu
 
-	int turno =1+ rand() % (3-1);//se da el turno de un modo aleatorio
-	if (turno == 1)
-		std::cout << "Empieza la computadora: ";
-	else
-		std::cout << "Empieza el ser humano: ";
-	
-
-	while (!gano) {
-		ventana.eventos();
-		if (turno == 1) {
-			if (!juegoOfensivo()) {//primero verifica si existe posibilidad de ganar
-				if (!juegoDefensivo()) //luego se serciora de que bloquear al jugador
-						juegaAleatorio();//selecciona una posicion aleatoria para jugar.
-			}
-			turno = 2;
-			mostrar();
-			ventana.draw(tablero);
-		}
-		else {
-			//turno del jugador en el que se inserta la ficha 'o'
-			system("cls");
-			int x = 0, y = 0;
-			int eleccion = 0;
-			std::cout << "\nPor favor inserte una posicion (x,y): ";
-			std::cout << "\n\t=>Posicion x:";  std::cin >> x;
-			std::cout << "\n\t=>Posicion y:";  std::cin >> y;
-			validacion(x, y, J1);
-			turno = 1;
-		}
-		if (winCondition(J1) != 3 || winCondition(CPU) != 3)//verifica si alguno ha ganado.
-			gano = true;
-	}
-}
 
 
 //utiliza coordenadas random para jugar 
@@ -335,65 +253,29 @@ bool estructura::juegoDefensivo() {
 				return true;
 			}
 		}
-
 		return false;
 	}
 
 //Modo dificil de la computadora. Imposible de ganar. 
-void estructura::PVEdificil(Jugador* J1, Jugador* CPU) {
-	
+void estructura::pcDificil() {
 	int posX = 0; int posY = 0;
-	srand(time(NULL));//inicializa la semilla con la hora de la compu
-	int turno = 1+rand() % (3 - 1);//inicia el turno de manera aleatoria
-	if (turno == 1)
-		std::cout << "Empieza la computadora: ";
-	else
-		std::cout << "Empieza el ser humano: ";
-	system("pause");
-
-	while (!gano) {
-		system("cls");
-		//turno de la computadora
-		if (turno == 1) {
-			int bestScore = -INFINITY;//inicializa la variable para la fase de minimizar
-			for (int i = 0; i < 3; i++) {
-				for (int j = 0; j < 3; j++) {
-					if (tablero[i][j] == ' ') {
-						tablero[i][j] = CPU->ficha;//posicion la 'x' en la primera 
-						int score = minimax(0,false, CPU->ficha);//Analiza todas las posibles movidas que tiene con respecto a la situacion actual del tablero.
-						tablero.at(i).at(j) = ' ';//vuelve a ponera la posicion en vacio
-						if (score > bestScore) {
-							bestScore = score;
-							posX = i;
-							posY = j;
-						}
-					}
+	int bestScore = -2;//inicializa la variable para la fase de minimizar
+	for (int i = 0; i < 3; i++) {
+		for (int j = 0; j < 3; j++) {
+			if (tablero[i][j] == ' ') {
+				tablero[i][j] = 'x';//posicion la 'x' en la primera 
+				int score = minimax(0, false, 'x');//Analiza todas las posibles movidas que tiene con respecto a la situacion actual del tablero.
+				tablero.at(i).at(j) = ' ';//vuelve a ponera la posicion en vacio
+				if (score > bestScore) {
+					bestScore = score;
+					posX = i;
+					posY = j;
 				}
 			}
-			tablero.at(posX).at(posY) = CPU->ficha;//dado el mayor puntaje se le asigna las coordenadas asociadas a esa mejor puntuacion al tablero. 
-			mostrar();//muestra en consola
-			ventana.draw(tablero);
-			turno = 2;//pasa el turno
-			if (winCondition(CPU) != 3)//verifica si gano en su turno
-				gano = true;
-			system("pause");
 		}
-		else {
-			system("cls");
-			//inserta y valida las posiciones
-			int x = 0, y = 0;
-			int eleccion = 0;
-			std::cout << "\nPor favor inserte una posicion (x,y): ";
-			std::cout << "\n\t=>Posicion x:";  std::cin >> x;
-			std::cout << "\n\t=>Posicion y:";  std::cin >> y;
-			validacion(x, y, J1);
-			if (winCondition(J1) != 3)//verifica si gano en su turno
-				gano = true;
-			turno = 1;//pasa de tuurno
-			system("pause");
-		}
-
 	}
+	tablero.at(posX).at(posY) = 'x';//dado el mayor puntaje se le asigna las coordenadas asociadas a esa mejor puntuacion al tablero. 
+	
 }
 //Metodo utilizado para obtener la jugada mas obtima por medio de la recreacion de un arbol de desiciones
 //En todos los casos en los que se gane se devuelve un valor positivo(Maximizar) 
@@ -412,12 +294,12 @@ int estructura::minimax(int profundidad, bool estaMax, char ficha) {
 	}
 	//este es el caso en que maximiza (juegan las 'x')
 	if (estaMax) {
-		int bestScore = -INFINITY;//se inicializa con la peor puntuacion que podria tener. (deberia se infinito)
+		int bestScore = -2;//se inicializa con la peor puntuacion que podria tener. (deberia se infinito)
 		for (int i = 0; i < 3; i++) {
 			for (int j = 0; j < 3; j++) {
 				if (tablero.at(i).at(j) == ' ') {//verifica que la posicion en la que se puede jugar sea un espacio vacio
 					tablero.at(i).at(j) = 'x';//si esta vacio posiciona la 'x' en ese lugar y luego le pasa el "turno" al jugador
-					int score = profundidad - minimax(profundidad + 1, false, 'x');//optiene la puntuacion mas alta del arbol. y se le resta la profundidad para conseguirlo en la menor cantidad de pasos
+					int score = minimax(profundidad + 1, false, 'x');//optiene la puntuacion mas alta del arbol. y se le resta la profundidad para conseguirlo en la menor cantidad de pasos
 					tablero.at(i).at(j) = ' ';//vuelve a poner la posicion jugada en blanco
 					
 					if ((score > bestScore))//maximiza
@@ -430,12 +312,12 @@ int estructura::minimax(int profundidad, bool estaMax, char ficha) {
 	//este el caso en que minimiza (juegan las 'o') 
 	//hace lo mismo que el de arriba pero busca el minimo
 	else {
-		int bestScore = INFINITY;
+		int bestScore = 2;
 		for (int i = 0; i < 3; i++) {
 			for (int j = 0; j < 3; j++) {
 				if (tablero.at(i).at(j) == ' ') {
 					tablero.at(i).at(j) = 'o';
-					int score = minimax(profundidad + 1, true, 'o') - profundidad;
+					int score = minimax(profundidad + 1, true, 'o') ;
 					tablero.at(i).at(j) = ' ';
 					if (score < bestScore)
 						bestScore = score;
@@ -449,56 +331,6 @@ int estructura::minimax(int profundidad, bool estaMax, char ficha) {
 //Jugador vs CPU (Modo facil)
 void estructura::PVEfacil(Jugador* J1, Jugador* J2) {
 
-	srand(time(NULL));//inicializa la semilla con la hora de la compu
-	int turno = 1 + rand() % (3 - 1);//turno al azar
-	system("pause");
-
-	while (!gano) {
-
-		int x = 0, y = 0;
-		system("cls");
-
-		if (turno == 1) {
-			//Se pide que el usuario digite la jugada
-			std::cout << " Turno de " << J1->nombre << ". " << std::endl;
-			std::cout << "\nPor favor inserte una posicion (x,y): ";
-			std::cout << "\n\t=>Posicion x:";  std::cin >> x;
-			std::cout << "\n\t=>Posicion y:";  std::cin >> y;
-
-			//Se valida y se inserta la jugada
-			validacion(x, y, J1);
-			//Se valida por si gano o si el tablero esta lleno
-			if (winCondition(J1) != 3)
-				gano = true;
-			ventana.draw(tablero);
-			//Se cambia de turno
-			turno = 2;
-		}
-		else {
-			//Se elige al azar un movimiento en el tablero
-			x = rand() % 3;
-			y = rand() % 3;
-			//Se valida y se inserta la jugada
-			juegaAleatorio();
-
-			//Se valida por si gano o si el tablero esta lleno
-			if (winCondition(J2) != 3)
-				gano = true;
-			
-			//Se cambia de turno
-			turno = 1;
-			mostrar();
-			ventana.draw(tablero);
-			system("pause");
-		}
-	}
-
-	//Imprime quien gano (Y)
-	if (turno == 2)
-		std::cout << "El ganador es " << J1->nombre << "\n";
-	else
-		if (turno == 1)
-			std::cout << "El ganador es el CPU" << "\n";
 }
 
 

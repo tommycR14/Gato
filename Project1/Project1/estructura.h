@@ -1,7 +1,10 @@
 #pragma once
-#include "grafico.h"
+
 #include <string>
 #include <vector>
+
+class estructura;
+class grafico;
 
 struct Jugador {
 	std::string nombre;
@@ -13,13 +16,9 @@ class estructura
 private:
 	//======== ATRIBUTOS =============
 	std::vector<std::vector<char>> tablero;
-	bool gano;
 	//======== # # # # # =============
 
-	//auxiliares para el juego intermedio
-	bool juegoOfensivo();
-	bool juegoDefensivo();
-	bool juegaAleatorio();
+	
 
 	//posiciona la ficha en un lugar determinado
 	void insertarFicha(Jugador* j, int x, int y) { tablero.at(x).at(y) = j->ficha; }
@@ -31,28 +30,23 @@ private:
 	void mostrar();
 	
 	~estructura() {}
-	//crea un arbol de desiciones en el que escoje la opcion 
-	//que de el puntaje mas alto en el que juega la PC
-	int minimax(int,bool, char);
 	
 	// Verifica que las fichas sean iguales 
 	// y diferentes de espacio.
 	bool verificaIgualdad(char, char, char);
 
-	grafico ventana;
 public: 
 	
 	estructura() ;//constructor de la clase
 	std::vector<std::vector<char>>& getTablero() { return tablero; }
 	
-	//juego de persona vs persona
-	void PvP(Jugador* , Jugador* );
+	//auxiliares para el juego intermedio
+	bool juegoOfensivo();
+	bool juegoDefensivo();
+	bool juegaAleatorio();
 
 	//computadora dificil
-	void PVEdificil(Jugador* ,Jugador*);
-
-	//Contra computadora intermedio
-	void PVEintermedio(Jugador*, Jugador*);
+	void pcDificil();
 
 	//facil
 	void PVEfacil(Jugador*,Jugador*);
@@ -63,5 +57,9 @@ public:
 
 	//verifica que alguien gane
 	int winCondition(Jugador*);
+	
+	//crea un arbol de desiciones en el que escoje la opcion 
+//que de el puntaje mas alto en el que juega la PC
+	int minimax(int, bool, char);
 };
 
