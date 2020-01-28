@@ -28,26 +28,41 @@ private:
 
 	//sonido
 	sf::Music cancion;
-	sf::SoundBuffer pasaNivelB;
-	sf::Sound pasaNivel;
+
 	sf::Music ganar;
 	sf::SoundBuffer opcionB;
 	sf::Sound opcion;
+	sf::Music facil;
+	sf::Music intermedio;
+	sf::Music dificil;
+	sf::SoundBuffer espadaB;
+	sf::Sound espadaS;
+	sf::SoundBuffer escudoB;
+	sf::Sound escudoS;
+	sf::Music pvpSong;
+	//================= METODOS PRIVADOS =============
+	void menuPVE();
 
-public: 
-	juego();//reserva un espacio en el heap para los atributos de la clase
-	~juego() { delete J1, J2, tab; }//libera el espacio
-	
 	//Insertar en posicion del tablero
 	//registro
 
 	//Modos de juego 
-	void PCvsJugadorFacil();
-	void PCvsJugadorIntermedio();
-	void PCvsJugadorDificil();
-	void jugadorVSjugador();	
+	void PVEfacil();
+	void PVEintermedio();
+	void PVEdificil();
+	void PVP();
+
+	void ganarEspadas();
+	void ganarEscudo();
+	void dibujaEmpate();
+
+	sf::Font fuente2;
+	sf::Text texto2;
+	//================= METODOS PRIVADOS =============
+public: 
+	juego();//reserva un espacio en el heap para los atributos de la clase
+	~juego() { delete J1, J2, tab; }//libera el espacio
 
 	void menu();
-
 };
 

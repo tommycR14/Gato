@@ -27,8 +27,6 @@ void estructura::mostrar() {
 	}
 }
 
-
-
 //Verica si la posicion ingresada es correcta
 bool estructura::validacion(int x, int y, Jugador* J1) {
 	//Primero verifica que las cordenadas esten dentro del rango del tablero
@@ -71,18 +69,18 @@ int estructura::winCondition(Jugador* pj) {
 	if (verificaIgualdad(tablero[2][0], tablero[1][1], tablero[0][2])) {
 		winner = tablero[2][0];
 	}
-
-	if (verificaEspaciosVacios() == 0) {
-		return 0;//retorna 0 en caso de que haya un empate
-	}
-	else if (winner == 'x') {
-		return 1;//retorna 1 en caso de que sea 'x' la que gane
+	 if (winner == 'x') {
+		return 10;//retorna 1 en caso de que sea 'x' la que gane
 	}
 	else if (winner == 'o') {
-		return -1;//retorna -1 en caso de que 'o' gane
+		return -10;//retorna -1 en caso de que 'o' gane
 	}
-	else
-		return 3;//retorna 3 en caso de que nadie gane
+	 else if (verificaEspaciosVacios() == 0 ) {
+		 return 0;//retorna 0 en caso de que haya un empate
+	 }
+	 
+	else 
+		return winner;//retorna 3 en caso de que nadie gane
 }
 
 //cuenta cuantos espacios vacios hay. 
@@ -259,7 +257,7 @@ bool estructura::juegoDefensivo() {
 //Modo dificil de la computadora. Imposible de ganar. 
 void estructura::pcDificil() {
 	int posX = 0; int posY = 0;
-	int bestScore = -2;//inicializa la variable para la fase de minimizar
+	int bestScore = -1000;//inicializa la variable para la fase de minimizar
 	for (int i = 0; i < 3; i++) {
 		for (int j = 0; j < 3; j++) {
 			if (tablero[i][j] == ' ') {
@@ -294,7 +292,7 @@ int estructura::minimax(int profundidad, bool estaMax, char ficha) {
 	}
 	//este es el caso en que maximiza (juegan las 'x')
 	if (estaMax) {
-		int bestScore = -2;//se inicializa con la peor puntuacion que podria tener. (deberia se infinito)
+		int bestScore = -1000;//se inicializa con la peor puntuacion que podria tener. (deberia se infinito)
 		for (int i = 0; i < 3; i++) {
 			for (int j = 0; j < 3; j++) {
 				if (tablero.at(i).at(j) == ' ') {//verifica que la posicion en la que se puede jugar sea un espacio vacio
@@ -312,25 +310,29 @@ int estructura::minimax(int profundidad, bool estaMax, char ficha) {
 	//este el caso en que minimiza (juegan las 'o') 
 	//hace lo mismo que el de arriba pero busca el minimo
 	else {
-		int bestScore = 2;
+		int bestScore = 1000;
 		for (int i = 0; i < 3; i++) {
 			for (int j = 0; j < 3; j++) {
 				if (tablero.at(i).at(j) == ' ') {
 					tablero.at(i).at(j) = 'o';
-					int score = minimax(profundidad + 1, true, 'o') ;
+					int score = minimax(profundidad + 1, true, 'o');
 					tablero.at(i).at(j) = ' ';
 					if (score < bestScore)
 						bestScore = score;
 				}
 			}
 		}
+		//std::cout << "\n minimax: El mejor movimiento es: " << bestScore;
 		return bestScore;
 	}
 }
 
-//Jugador vs CPU (Modo facil)
-void estructura::PVEfacil(Jugador* J1, Jugador* J2) {
-
+void estructura::reiniciar() {
+	for (int i = 0; i < 3; i++) {
+		for (int j = 0; j < 3; j++) {
+			tablero[i][j] = ' ';
+		}
+	}
 }
 
 

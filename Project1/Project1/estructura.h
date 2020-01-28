@@ -25,8 +25,6 @@ private:
 	//cuenta cuantos espacios vacios hay. 
 	int verificaEspaciosVacios();
 	
-	
-	
 	void mostrar();
 	
 	~estructura() {}
@@ -49,7 +47,6 @@ public:
 	void pcDificil();
 
 	//facil
-	void PVEfacil(Jugador*,Jugador*);
 
 	//verfica si el movimiento ingresado
 	//por el jugador es correcto
@@ -61,5 +58,7 @@ public:
 	//crea un arbol de desiciones en el que escoje la opcion 
 //que de el puntaje mas alto en el que juega la PC
 	int minimax(int, bool, char);
+//reiniciar el tablero para empezar de nuevo
+	void reiniciar();
 };
 

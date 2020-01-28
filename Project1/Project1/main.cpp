@@ -4,7 +4,7 @@
 
 int main() {
 	juego j;
-	j.PCvsJugadorDificil();
+	j.menu();
 	
 	return 0;
 }
